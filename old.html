@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dean van Uden | Game Designer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00f3ff',
+                            dark: '#0a0a12',
+                            purple: '#bd00ff',
+                            glass: 'rgba(255, 255, 255, 0.05)'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Rajdhani', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s infinite',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f3ff;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .glass-panel {
+            background: rgba(10, 10, 18, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #00f3ff, #bd00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            aspect-ratio: 16/9;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Hexagon Clip Path */
+        .hex {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-brand-cyan selection:text-black">
+
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative px-4">
+        <div class="text-center z-10 max-w-5xl">
+            <h2 class="text-brand-cyan font-mono text-xl tracking-[0.3em] mb-4 uppercase">Dean van Uden</h2>
+            <h1 class="font-display font-bold text-6xl md:text-9xl mb-6 leading-none tracking-tighter">
+                GAME <span class="gradient-text">DESIGN</span>
+            </h1>
+            <p class="text-gray-400 text-xl md:text-2xl max-w-2xl mx-auto mb-10 font-light">
+                Master of Arts in Game Design. Unity Developer specialized in Multiplayer and XR.
+                Creator of <span class="text-white font-semibold">Quickball</span>.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#quickball" class="bg-white text-black font-bold px-8 py-4 rounded-lg hover:bg-brand-cyan transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
+                    VIEW WORK
+                </a>
+                <a href="#contact" class="glass-panel text-white font-bold px-8 py-4 rounded-lg hover:border-brand-cyan transition-all flex items-center justify-center gap-2">
+                    CONTACT ME
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-500">
+            <i data-lucide="chevrons-down" class="w-8 h-8"></i>
+        </div>
+    </section>
+
+    <!-- Quickball Showcase Section -->
+    <section id="quickball" class="py-24 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-purple/5 to-transparent pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="flex flex-col lg:flex-row gap-12 items-center mb-16">
+                <div class="lg:w-1/2">
+                    <div class="inline-block mb-2 text-brand-cyan font-bold tracking-wider">FEATURED PROJECT</div>
+                    <h2 class="font-display font-bold text-6xl mb-6 text-white">QUICKBALL</h2>
+                    <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                        A chaotic online multiplayer sports game. Think physics-based sports with high speeds and explosions. I built the networking architecture to handle fast-paced PvP matches where timing is everything. It's built for fun, competition, and messing with your friends.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <span class="px-4 py-2 glass-panel rounded text-sm text-brand-cyan border-brand-cyan/30">Solo Dev</span>
+                        <span class="px-4 py-2 glass-panel rounded text-sm text-brand-purple border-brand-purple/30">Unity / C#</span>
+                        <span class="px-4 py-2 glass-panel rounded text-sm text-white">Multiplayer / PvP</span>
+                    </div>
+
+                    <a href="https://store.steampowered.com/app/3318920/Quickball/" target="_blank" class="inline-flex items-center gap-2 text-white hover:text-brand-cyan transition-colors border-b border-brand-cyan pb-1">
+                        Visit Steam Store <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Media Column (MP4 Video + Steam Widget) -->
+                <div class="lg:w-1/2 w-full flex flex-col gap-6">
+                    <!-- Local MP4 Video -->
+                    <div class="video-container bg-black rounded-lg overflow-hidden border border-gray-800 shadow-[0_0_30px_rgba(0,243,255,0.1)] hover:shadow-[0_0_50px_rgba(0,243,255,0.2)] transition-shadow duration-500">
+                        <video controls playsinline poster="quickball-thumb.jpg">
+                            <source src="quickball.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <!-- Steam Widget -->
+                    <div class="relative bg-black rounded-lg overflow-hidden border border-gray-800 shadow-[0_0_30px_rgba(0,243,255,0.1)] hover:shadow-[0_0_50px_rgba(0,243,255,0.2)] transition-shadow duration-500" style="height: 190px;">
+                        <iframe src="https://store.steampowered.com/widget/3318920/" frameborder="0" width="100%" height="190" scrolling="no" style="overflow:hidden; border:none;"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simplified Pillars -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-xl border-t border-brand-cyan/20">
+                    <h4 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="network" class="text-brand-cyan w-5 h-5"></i> Networked Physics
+                    </h4>
+                    <p class="text-gray-400 text-sm">Synchronizing high-speed physics objects across clients for fair competitive play.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl border-t border-brand-purple/20">
+                    <h4 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="swords" class="text-brand-purple w-5 h-5"></i> PvP Balance
+                    </h4>
+                    <p class="text-gray-400 text-sm">Designing abilities that feel powerful but offer counter-play opportunities.</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl border-t border-brand-cyan/20">
+                    <h4 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="zap" class="text-brand-cyan w-5 h-5"></i> Game Feel
+                    </h4>
+                    <p class="text-gray-400 text-sm">Making sure hitting the ball feels satisfying, with crunchy audio and impact frames.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section (Moved Here) -->
+    <section id="about" class="py-24 relative overflow-hidden bg-brand-dark/30">
+         <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="glass-panel p-8 md:p-12 rounded-2xl border border-gray-800">
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <!-- Profile Picture -->
+                    <div class="shrink-0 bg-gradient-to-br from-gray-800 to-black p-1 rounded-full border border-gray-700">
+                        <img src="profile.jpg" alt="Dean van Uden" class="w-24 h-24 rounded-full object-cover bg-gray-900 border-2 border-gray-800">
+                    </div>
+
+                    <div class="space-y-4">
+                        <h2 class="font-display font-bold text-4xl text-white">ABOUT ME</h2>
+                        <div class="text-gray-300 leading-relaxed space-y-4">
+                            <p>
+                                I am <strong>Dean van Uden</strong>, a Game Designer based in Germany with a 
+                                <strong>Master of Arts in Game Design</strong> from <em>LUCA School of Arts</em> (Genk, Belgium).
+                            </p>
+                            <p>
+                                My background combines creative design with technical implementation. 
+                                I previously worked at <strong>Toster Software</strong> (2022-2024), where I developed Virtual Reality applications 
+                                in a professional software environment.
+                            </p>
+                            <p>
+                                I specialize in <span class="text-brand-cyan">Unity & Unreal Engine</span>, focusing on bridging the gap between 
+                                complex systems and intuitive player experiences.
+                            </p>
+                        </div>
+                        
+                        <div class="pt-6 mt-6 border-t border-gray-700/50 flex flex-wrap gap-x-8 gap-y-2 text-sm font-mono text-gray-400">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-brand-purple"></i> Holtland, Germany
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="languages" class="w-4 h-4 text-brand-purple"></i> Dutch (Native), English (Fluent)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </section>
+
+    <!-- Other Projects Section -->
+    <section id="projects" class="py-24 bg-brand-dark/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-display font-bold text-4xl mb-12 text-white border-l-4 border-brand-purple pl-4">PROTOTYPES & PROJECTS</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Project: XR Lighting Configurator -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-cyan transition-colors">
+                        <video controls playsinline>
+                            <source src="xr_lighting.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">XR LIGHTING</h3>
+                        <span class="text-xs text-brand-cyan font-mono border border-brand-cyan/30 px-2 py-1 rounded">VR / MULTIPLAYER</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Multiplayer VR application allowing clients to configure lighting setups in real-time. Features database export for manufacturing. Built at Toster Software.
+                    </p>
+                    <a href="https://www.linkedin.com/posts/tostersoftware_3d-web-configurator-ugcPost-7236728989514362881-aSfh" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-brand-cyan hover:underline">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i> View Post
+                    </a>
+                </div>
+
+                <!-- Project: Whitelight Virtual Tour -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-purple transition-colors">
+                        <video controls playsinline>
+                            <source src="whitelight.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">WHITELIGHT TOUR</h3>
+                        <span class="text-xs text-brand-purple font-mono border border-brand-purple/30 px-2 py-1 rounded">XR / VISUALIZATION</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Virtual facility tour application demonstrating company processes and building layout. Created for Whitelight to visualize their production pipeline.
+                    </p>
+                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:6997805321633071104" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-brand-purple hover:underline">
+                        <i data-lucide="linkedin" class="w-4 h-4"></i> View Post
+                    </a>
+                </div>
+
+                <!-- Project: 1v1 Arena Shooter -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-cyan transition-colors">
+                        <video controls playsinline>
+                            <source src="1v1_shooter.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">1v1 ARENA SHOOTER</h3>
+                        <span class="text-xs text-brand-cyan font-mono border border-brand-cyan/30 px-2 py-1 rounded">MULTIPLAYER / FPS</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Fast-paced 1v1 multiplayer shooter. Designed the networking logic and player controller for tight competitive play in a compact arena setting.
+                    </p>
+                </div>
+
+                <!-- Project: The Core -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-cyan transition-colors">
+                        <video controls playsinline>
+                            <source src="the_core.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">THE CORE</h3>
+                        <span class="text-xs text-brand-cyan font-mono border border-brand-cyan/30 px-2 py-1 rounded">UNITY LIGHTING</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Atmospheric experience game created in a 2-week sprint. Responsible for all Unity implementation, specifically volumetric lighting, post-processing, and environmental mood.
+                    </p>
+                </div>
+
+                <!-- Project: Crossroads -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-purple transition-colors">
+                        <video controls playsinline>
+                            <source src="crossroads.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">CROSSROADS</h3>
+                        <span class="text-xs text-brand-purple font-mono border border-brand-purple/30 px-2 py-1 rounded">PUZZLE LOGIC</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Cartoon puzzle game focused on efficiency. Players must guide cars to the finish line using optimized routing. Designed the core puzzle mechanics and pathfinding systems.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-12 bg-black text-center border-t border-gray-900">
+        <h2 class="font-display font-bold text-3xl mb-8 text-white">GET IN TOUCH</h2>
+        
+        <div class="flex justify-center gap-8 mb-8">
+            <a href="mailto:deanvu1@gmail.com" class="group flex flex-col items-center gap-2">
+                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center group-hover:bg-brand-cyan group-hover:text-black transition-all">
+                    <i data-lucide="mail"></i>
+                </div>
+                <span class="text-sm text-gray-500 group-hover:text-brand-cyan transition-colors">Email</span>
+            </a>
+            <a href="https://www.linkedin.com/in/deanvanuden/" target="_blank" class="group flex flex-col items-center gap-2">
+                <div class="w-12 h-12 rounded-full bg-gray-900 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                    <i data-lucide="linkedin"></i>
+                </div>
+                <span class="text-sm text-gray-500 group-hover:text-white transition-colors">LinkedIn</span>
+            </a>
+        </div>
+        <p class="text-gray-700 text-xs uppercase tracking-widest">© 2025 Dean van Uden</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // 3D Background Logic
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            // Sparse, impactful particles
+            const geometry = new THREE.BufferGeometry();
+            const count = 1200;
+            const pos = new Float32Array(count * 3);
+            for(let i = 0; i < count * 3; i++) pos[i] = (Math.random() - 0.5) * 18;
+            geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.025,
+                color: 0x00f3ff,
+                transparent: true,
+                opacity: 0.6
+            });
+
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
+            camera.position.z = 4;
+
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', e => {
+                mouseX = e.clientX / window.innerWidth - 0.5;
+                mouseY = e.clientY / window.innerHeight - 0.5;
+            });
+
+            const animate = () => {
+                requestAnimationFrame(animate);
+                points.rotation.y += 0.001;
+                points.rotation.x += 0.0005;
+                // Subtle reactive movement
+                points.rotation.x += (mouseY * 0.2 - points.rotation.x) * 0.05;
+                points.rotation.y += (mouseX * 0.2 - points.rotation.y) * 0.05;
+                renderer.render(scene, camera);
+            };
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        window.onload = initThreeJS;
+    </script>
+</body>
+</html>

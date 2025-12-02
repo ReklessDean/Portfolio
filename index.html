@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dean van Uden | System Online</title>
+    <title>Dean van Uden | Game Designer</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
     
     <!-- Tailwind CSS -->
@@ -28,33 +28,12 @@
                             dark: '#0a0a12',
                             cyan: '#00f3ff',
                             purple: '#bc13fe',
-                            grid: 'rgba(0, 243, 255, 0.05)'
+                            glass: 'rgba(255, 255, 255, 0.03)'
                         }
                     },
                     fontFamily: {
                         hud: ['Rajdhani', 'sans-serif'],
                         code: ['Share Tech Mono', 'monospace'],
-                    },
-                    backgroundImage: {
-                        'scanline': 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))',
-                    },
-                    keyframes: {
-                        glitch: {
-                            '0%': { transform: 'translate(0)' },
-                            '20%': { transform: 'translate(-2px, 2px)' },
-                            '40%': { transform: 'translate(-2px, -2px)' },
-                            '60%': { transform: 'translate(2px, 2px)' },
-                            '80%': { transform: 'translate(2px, -2px)' },
-                            '100%': { transform: 'translate(0)' },
-                        },
-                        scan: {
-                            '0%': { backgroundPosition: '0 -100vh' },
-                            '100%': { backgroundPosition: '0 100vh' }
-                        }
-                    },
-                    animation: {
-                        'glitch-fast': 'glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite',
-                        'scan': 'scan 8s linear infinite'
                     }
                 }
             }
@@ -63,66 +42,28 @@
 
     <style>
         body {
-            background-color: #020205;
+            background-color: #050505;
+            /* Subtle Deep Space Gradient */
+            background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #050505 70%);
+            background-attachment: fixed;
             color: #e2e8f0;
             overflow-x: hidden;
-            cursor: none; /* Custom cursor */
+            cursor: default; 
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #020205;
         }
         ::-webkit-scrollbar-thumb {
             background: #333;
-            border: 1px solid #00f3ff;
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #00f3ff;
-        }
-
-        /* Custom Cursor */
-        #cursor {
-            width: 20px;
-            height: 20px;
-            border: 1px solid #00f3ff;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%) rotate(45deg);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-            mix-blend-mode: difference;
-        }
-        #cursor::after {
-            content: '';
-            width: 4px;
-            height: 4px;
-            background: #00f3ff;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        body:hover #cursor.active {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(0, 243, 255, 0.1);
-            border-color: #bc13fe;
-        }
-
-        /* Scanlines */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8L3N2Zz4=');
-            pointer-events: none;
-            z-index: 50;
         }
 
         #canvas-container {
@@ -132,148 +73,83 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.8;
+            opacity: 0.6; /* Slightly softer stars */
         }
 
-        /* HUD Panels */
+        /* Refined Glass Panels (Less "Cyber", More Clean) */
         .hud-panel {
-            background: rgba(10, 10, 18, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 243, 255, 0.1);
+            background: rgba(15, 15, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle white border */
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease-out;
+            border-radius: 8px; /* Softer corners */
         }
+        
+        .hud-panel:hover {
+            border-color: rgba(0, 243, 255, 0.3);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
+        }
+
+        /* Decorative "Tech" corners - made much subtler */
         .hud-panel::before {
             content: '';
             position: absolute;
-            top: -1px; left: -1px;
-            width: 10px; height: 10px;
-            border-top: 2px solid #00f3ff;
-            border-left: 2px solid #00f3ff;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-top: 1px solid rgba(0, 243, 255, 0.5);
+            border-left: 1px solid rgba(0, 243, 255, 0.5);
             transition: all 0.3s ease;
-            pointer-events: none; /* CRITICAL FIX: Allows clicks to pass through */
+            pointer-events: none;
+            opacity: 0;
+            z-index: 0;
+            border-radius: 8px 0 0 0;
         }
-        .hud-panel::after {
-            content: '';
-            position: absolute;
-            bottom: -1px; right: -1px;
-            width: 10px; height: 10px;
-            border-bottom: 2px solid #00f3ff;
-            border-right: 2px solid #00f3ff;
-            transition: all 0.3s ease;
-            pointer-events: none; /* CRITICAL FIX: Allows clicks to pass through */
-        }
-        .hud-panel:hover {
-            border-color: rgba(0, 243, 255, 0.4);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
-            transform: translateY(-5px);
-        }
-        .hud-panel:hover::before, .hud-panel:hover::after {
-            width: 100%;
-            height: 100%;
-            opacity: 0.5;
+        .hud-panel:hover::before {
+            width: 20px; height: 20px;
+            opacity: 1;
         }
 
-        /* Glitch Text Effect */
-        .glitch-wrapper {
+        .hud-panel > * {
             position: relative;
-            display: inline-block;
-        }
-        .glitch-wrapper::before, .glitch-wrapper::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #020205;
-        }
-        .glitch-wrapper::before {
-            left: 2px;
-            text-shadow: -1px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
-        .glitch-wrapper::after {
-            left: -2px;
-            text-shadow: -1px 0 #00fff9;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim2 5s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim {
-            0% { clip: rect(13px, 9999px, 81px, 0); }
-            20% { clip: rect(69px, 9999px, 8px, 0); }
-            40% { clip: rect(6px, 9999px, 76px, 0); }
-            60% { clip: rect(28px, 9999px, 14px, 0); }
-            80% { clip: rect(66px, 9999px, 33px, 0); }
-            100% { clip: rect(79px, 9999px, 57px, 0); }
-        }
-        @keyframes glitch-anim2 {
-            0% { clip: rect(54px, 9999px, 93px, 0); }
-            20% { clip: rect(10px, 9999px, 2px, 0); }
-            40% { clip: rect(38px, 9999px, 93px, 0); }
-            60% { clip: rect(25px, 9999px, 55px, 0); }
-            80% { clip: rect(17px, 9999px, 4px, 0); }
-            100% { clip: rect(63px, 9999px, 73px, 0); }
+            z-index: 10;
         }
 
         .gradient-text {
             background: linear-gradient(90deg, #00f3ff, #bc13fe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
         }
 
         .video-wrapper {
             position: relative;
             overflow: hidden;
-            border-radius: 4px;
-        }
-        .video-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 40%);
-            pointer-events: none;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body class="font-hud selection:bg-cyber-cyan selection:text-black">
 
-    <!-- Custom Cursor -->
-    <div id="cursor"></div>
-
-    <!-- Scanlines Overlay -->
-    <div class="scanlines"></div>
-
     <!-- 3D Background -->
     <div id="canvas-container"></div>
 
-    <!-- HUD Decorators -->
-    <div class="fixed top-8 left-8 z-40 hidden md:block opacity-50 font-code text-xs text-cyber-cyan">
+    <!-- Minimal HUD Decorators -->
+    <div class="fixed top-8 left-8 z-40 hidden md:block opacity-30 font-code text-xs text-white">
         STATUS: ONLINE<br>
         LOC: DE_GERMANY
     </div>
-    <div class="fixed top-8 right-8 z-40 hidden md:block opacity-50 font-code text-xs text-right text-cyber-purple">
-        SYS_VER: 2.4.1<br>
-        FPS: <span id="fps-counter">60</span>
-    </div>
-    <div class="fixed bottom-8 left-8 z-40 hidden md:block opacity-50 font-code text-xs text-cyber-cyan">
-        [ /// DEAN_VAN_UDEN /// ]
-    </div>
-    <div class="fixed bottom-8 right-8 z-40 hidden md:flex gap-4 opacity-50 text-xs font-code text-cyber-cyan">
-        <span>UNITY_ENGINE</span>
-        <span>UNREAL_5</span>
-        <span>C#_NET</span>
+    <div class="fixed top-8 right-8 z-40 hidden md:block opacity-30 font-code text-xs text-right text-cyber-purple">
+        PORTFOLIO_V2
     </div>
 
-    <!-- Navigation (Sticky HUD) -->
+    <!-- Navigation (Sticky) -->
     <nav class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-6">
-        <a href="#home" class="w-3 h-3 bg-gray-800 border border-gray-600 rotate-45 hover:bg-cyber-cyan hover:border-cyber-cyan hover:scale-125 transition-all" title="HOME"></a>
-        <a href="#quickball" class="w-3 h-3 bg-gray-800 border border-gray-600 rotate-45 hover:bg-cyber-cyan hover:border-cyber-cyan hover:scale-125 transition-all" title="QUICKBALL"></a>
-        <a href="#about" class="w-3 h-3 bg-gray-800 border border-gray-600 rotate-45 hover:bg-cyber-cyan hover:border-cyber-cyan hover:scale-125 transition-all" title="ABOUT"></a>
-        <a href="#projects" class="w-3 h-3 bg-gray-800 border border-gray-600 rotate-45 hover:bg-cyber-cyan hover:border-cyber-cyan hover:scale-125 transition-all" title="PROJECTS"></a>
-        <a href="#3d-art" class="w-3 h-3 bg-gray-800 border border-gray-600 rotate-45 hover:bg-cyber-cyan hover:border-cyber-cyan hover:scale-125 transition-all" title="3D ASSETS"></a>
+        <a href="#home" class="w-2 h-2 bg-gray-600 rounded-full hover:bg-cyber-cyan hover:scale-150 transition-all duration-300" title="HOME"></a>
+        <a href="#quickball" class="w-2 h-2 bg-gray-600 rounded-full hover:bg-cyber-cyan hover:scale-150 transition-all duration-300" title="QUICKBALL"></a>
+        <a href="#about" class="w-2 h-2 bg-gray-600 rounded-full hover:bg-cyber-cyan hover:scale-150 transition-all duration-300" title="ABOUT"></a>
+        <a href="#projects" class="w-2 h-2 bg-gray-600 rounded-full hover:bg-cyber-cyan hover:scale-150 transition-all duration-300" title="PROJECTS"></a>
+        <a href="#3d-art" class="w-2 h-2 bg-gray-600 rounded-full hover:bg-cyber-cyan hover:scale-150 transition-all duration-300" title="3D ASSETS"></a>
     </nav>
 
     <!-- Main Content -->
@@ -282,15 +158,12 @@
         <!-- Hero Section -->
         <section id="home" class="min-h-screen flex items-center justify-center relative px-4">
             <div class="text-center max-w-6xl w-full flex flex-col items-center">
-                <div class="inline-block border border-cyber-cyan/30 bg-cyber-cyan/5 px-4 py-1 mb-6 font-code text-cyber-cyan tracking-[0.3em] text-sm">
-                    SYSTEM_READY
-                </div>
                 
-                <h1 class="font-hud font-bold text-7xl md:text-9xl mb-2 leading-none tracking-tighter text-white glitch-wrapper" data-text="GAME DESIGN">
-                    GAME DESIGN
+                <h1 class="font-hud font-bold text-7xl md:text-9xl mb-4 leading-none tracking-tight text-white">
+                    GAME <span class="gradient-text">DESIGN</span>
                 </h1>
                 
-                <div class="h-1 w-24 bg-gradient-to-r from-cyber-cyan to-cyber-purple mb-8"></div>
+                <div class="h-1 w-24 bg-gradient-to-r from-cyber-cyan to-cyber-purple mb-8 rounded-full"></div>
                 
                 <p class="text-gray-400 text-xl md:text-2xl max-w-2xl text-center mb-12 font-light font-code">
                     <span class="text-white">DEAN VAN UDEN</span> // UNITY DEVELOPER<br>
@@ -298,18 +171,17 @@
                 </p>
                 
                 <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                    <a href="#quickball" class="group relative px-8 py-4 bg-white text-black font-bold font-hud tracking-widest overflow-hidden">
-                        <span class="relative z-10 group-hover:text-white transition-colors">INITIALIZE PROJECT</span>
-                        <div class="absolute inset-0 bg-cyber-cyan transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                    <a href="#quickball" class="bg-white text-black font-bold font-hud tracking-widest px-8 py-4 rounded hover:bg-cyber-cyan transition-all transform hover:scale-105">
+                        INITIALIZE PROJECT
                     </a>
                     
-                    <a href="#contact" class="px-8 py-4 border border-cyber-cyan/50 text-cyber-cyan font-code text-sm tracking-widest hover:bg-cyber-cyan/10 hover:shadow-[0_0_20px_rgba(0,243,255,0.3)] transition-all">
-                        ESTABLISH_UPLINK
+                    <a href="#contact" class="px-8 py-4 border border-white/20 text-white font-code text-sm tracking-widest rounded hover:bg-white/5 hover:border-cyber-cyan transition-all">
+                        CONTACT_ME
                     </a>
                 </div>
             </div>
             
-            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-cyber-cyan/50 animate-bounce">
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20 animate-bounce">
                 <i data-lucide="chevron-down" class="w-8 h-8"></i>
             </div>
         </section>
@@ -318,10 +190,10 @@
         <section id="quickball" class="py-32 relative">
             <div class="max-w-7xl mx-auto px-6">
                 <!-- Section Header -->
-                <div class="flex items-center gap-4 mb-16">
+                <div class="flex items-center gap-4 mb-16 opacity-50">
                     <div class="h-px bg-cyber-cyan w-12"></div>
                     <span class="text-cyber-cyan font-code tracking-widest">PRIORITY_ASSET</span>
-                    <div class="h-px bg-gray-800 flex-1"></div>
+                    <div class="h-px bg-gray-700 flex-1"></div>
                 </div>
 
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -340,9 +212,9 @@
                         </p>
 
                         <div class="flex flex-wrap gap-4 mb-10">
-                            <div class="hud-panel px-4 py-2 text-sm text-cyber-cyan">SOLO_DEV</div>
-                            <div class="hud-panel px-4 py-2 text-sm text-white">PHYSICS_SYNC</div>
-                            <div class="hud-panel px-4 py-2 text-sm text-cyber-purple">STEAM_API</div>
+                            <div class="px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-cyber-cyan">SOLO_DEV</div>
+                            <div class="px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-white">PHYSICS_SYNC</div>
+                            <div class="px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-cyber-purple">STEAM_API</div>
                         </div>
 
                         <a href="https://store.steampowered.com/app/3318920/Quickball/" target="_blank" class="inline-flex items-center gap-2 text-cyber-cyan hover:text-white transition-colors border-b border-cyber-cyan pb-1 font-code">
@@ -353,42 +225,31 @@
                     <!-- Media Stack (Tilt Enabled) -->
                     <div class="space-y-6" data-tilt>
                         <!-- Video Display with HUD frame -->
-                        <div class="hud-panel p-2 video-card">
-                            <div class="relative bg-black aspect-video overflow-hidden">
+                        <div class="hud-panel p-2 video-card overflow-hidden">
+                            <div class="relative bg-black aspect-video overflow-hidden rounded">
                                 <video loop muted playsinline class="w-full h-full object-cover opacity-80 transition-opacity">
                                     <source src="quickball.mp4" type="video/mp4">
                                 </video>
                                 <div class="absolute top-2 right-2 flex gap-1">
-                                    <div class="w-1 h-1 bg-red-500 animate-pulse"></div>
+                                    <div class="w-1 h-1 bg-red-500 animate-pulse rounded-full"></div>
                                     <span class="text-[8px] text-red-500 font-code">REC</span>
-                                </div>
-                                <!-- Crosshair Overlay -->
-                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-                                    <div class="w-64 h-[1px] bg-cyber-cyan"></div>
-                                    <div class="h-64 w-[1px] bg-cyber-cyan absolute"></div>
-                                    <div class="w-32 h-32 border border-cyber-cyan rounded-full"></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Steam Widget Frame -->
-                        <div class="hud-panel p-1">
-                            <iframe src="https://store.steampowered.com/widget/3318920/" frameborder="0" width="100%" height="190" scrolling="no" style="overflow:hidden; border:none;"></iframe>
+                        <div class="hud-panel p-1 overflow-hidden">
+                            <iframe src="https://store.steampowered.com/widget/3318920/" frameborder="0" width="100%" height="190" scrolling="no" style="overflow:hidden; border:none; border-radius: 4px;"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section (HUD Profile) -->
-        <section id="about" class="py-32 bg-cyber-dark/50 border-y border-cyber-cyan/10">
+        <!-- About Section -->
+        <section id="about" class="py-32 border-y border-white/5 bg-black/20">
             <div class="max-w-5xl mx-auto px-6">
                 <div class="hud-panel p-8 md:p-12 relative overflow-hidden">
-                    <!-- Decorator Bg -->
-                    <div class="absolute top-0 right-0 p-4 opacity-20">
-                        <i data-lucide="cpu" class="w-64 h-64 text-cyber-cyan"></i>
-                    </div>
-
                     <div class="flex flex-col md:flex-row gap-10 items-center md:items-start relative z-10">
                         <!-- Hex Profile Pic -->
                         <div class="shrink-0 relative group">
@@ -431,7 +292,7 @@
             </div>
         </section>
 
-        <!-- Projects Grid (Holo-Cards) -->
+        <!-- Projects Grid -->
         <section id="projects" class="py-32 px-6">
             <div class="max-w-7xl mx-auto">
                 <div class="flex justify-between items-end mb-16">
@@ -439,17 +300,13 @@
                         <h2 class="font-hud font-bold text-5xl md:text-6xl text-white mb-2">ARCHIVES</h2>
                         <div class="text-cyber-cyan font-code text-sm tracking-widest">PROTOTYPES && EXPERIMENTS</div>
                     </div>
-                    <div class="hidden md:block font-code text-xs text-gray-500 text-right">
-                        Dir: /projects/public<br>
-                        Total: 5 Files
-                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
                     <!-- Card: XR Lighting -->
                     <div class="hud-panel p-0 group overflow-hidden video-card" data-tilt>
-                        <div class="relative aspect-video bg-black border-b border-gray-800">
+                        <div class="relative aspect-video bg-black border-b border-white/5">
                             <video loop muted playsinline class="w-full h-full object-cover opacity-60 transition-opacity duration-500">
                                 <source src="xr_lighting.mp4" type="video/mp4">
                             </video>
@@ -457,7 +314,7 @@
                                 VR_CONFIGURATOR
                             </div>
                         </div>
-                        <div class="p-6 bg-gradient-to-b from-cyber-dark to-black">
+                        <div class="p-6 bg-gradient-to-b from-transparent to-black/50">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="font-hud font-bold text-2xl text-white group-hover:text-cyber-cyan transition-colors">XR LIGHTING</h3>
                                 <i data-lucide="box" class="w-5 h-5 text-gray-600 group-hover:text-cyber-cyan transition-colors"></i>
@@ -471,7 +328,7 @@
 
                     <!-- Card: Whitelight -->
                     <div class="hud-panel p-0 group overflow-hidden video-card" data-tilt>
-                        <div class="relative aspect-video bg-black border-b border-gray-800">
+                        <div class="relative aspect-video bg-black border-b border-white/5">
                             <video loop muted playsinline class="w-full h-full object-cover opacity-60 transition-opacity duration-500">
                                 <source src="whitelight.mp4" type="video/mp4">
                             </video>
@@ -479,7 +336,7 @@
                                 VISUALIZATION
                             </div>
                         </div>
-                        <div class="p-6 bg-gradient-to-b from-cyber-dark to-black">
+                        <div class="p-6 bg-gradient-to-b from-transparent to-black/50">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="font-hud font-bold text-2xl text-white group-hover:text-cyber-purple transition-colors">WHITELIGHT TOUR</h3>
                                 <i data-lucide="eye" class="w-5 h-5 text-gray-600 group-hover:text-cyber-purple transition-colors"></i>
@@ -493,7 +350,7 @@
 
                     <!-- Card: 1v1 Shooter -->
                     <div class="hud-panel p-0 group overflow-hidden video-card" data-tilt>
-                        <div class="relative aspect-video bg-black border-b border-gray-800">
+                        <div class="relative aspect-video bg-black border-b border-white/5">
                             <video loop muted playsinline class="w-full h-full object-cover opacity-60 transition-opacity duration-500">
                                 <source src="1v1_shooter.mp4" type="video/mp4">
                             </video>
@@ -501,7 +358,7 @@
                                 COMBAT_SIM
                             </div>
                         </div>
-                        <div class="p-6 bg-gradient-to-b from-cyber-dark to-black">
+                        <div class="p-6 bg-gradient-to-b from-transparent to-black/50">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="font-hud font-bold text-2xl text-white group-hover:text-red-500 transition-colors">1v1 ARENA</h3>
                                 <i data-lucide="crosshair" class="w-5 h-5 text-gray-600 group-hover:text-red-500 transition-colors"></i>
@@ -515,7 +372,7 @@
 
                     <!-- Card: The Core -->
                     <div class="hud-panel p-0 group overflow-hidden video-card" data-tilt>
-                        <div class="relative aspect-video bg-black border-b border-gray-800">
+                        <div class="relative aspect-video bg-black border-b border-white/5">
                             <video loop muted playsinline class="w-full h-full object-cover opacity-60 transition-opacity duration-500">
                                 <source src="the_core.mp4" type="video/mp4">
                             </video>
@@ -523,7 +380,7 @@
                                 TECH_ART
                             </div>
                         </div>
-                        <div class="p-6 bg-gradient-to-b from-cyber-dark to-black">
+                        <div class="p-6 bg-gradient-to-b from-transparent to-black/50">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="font-hud font-bold text-2xl text-white group-hover:text-cyber-cyan transition-colors">THE CORE</h3>
                                 <i data-lucide="sun" class="w-5 h-5 text-gray-600 group-hover:text-cyber-cyan transition-colors"></i>
@@ -538,7 +395,7 @@
                     <!-- Card: Crossroads -->
                     <div class="hud-panel p-0 group overflow-hidden video-card md:col-span-2" data-tilt>
                         <div class="flex flex-col md:flex-row h-full">
-                            <div class="md:w-1/2 relative bg-black border-r border-gray-800">
+                            <div class="md:w-1/2 relative bg-black border-r border-white/5">
                                 <video loop muted playsinline class="w-full h-full object-cover opacity-60 transition-opacity duration-500">
                                     <source src="crossroads.mp4" type="video/mp4">
                                 </video>
@@ -546,13 +403,13 @@
                                     LOGIC_PUZZLE
                                 </div>
                             </div>
-                            <div class="md:w-1/2 p-6 bg-gradient-to-b from-cyber-dark to-black flex flex-col justify-center">
+                            <div class="md:w-1/2 p-6 bg-gradient-to-b from-transparent to-black/50 flex flex-col justify-center">
                                 <h3 class="font-hud font-bold text-2xl text-white group-hover:text-yellow-500 transition-colors mb-2">CROSSROADS</h3>
                                 <p class="text-gray-400 text-sm mb-4">Optimization puzzle game. Designed A* pathfinding variants to simulate traffic flow logic.</p>
                                 <div class="flex gap-2 text-[10px] font-code text-gray-500 uppercase">
-                                    <span class="border border-gray-800 px-2 py-1">Unity</span>
-                                    <span class="border border-gray-800 px-2 py-1">C#</span>
-                                    <span class="border border-gray-800 px-2 py-1">AI</span>
+                                    <span class="border border-gray-700 px-2 py-1 rounded">Unity</span>
+                                    <span class="border border-gray-700 px-2 py-1 rounded">C#</span>
+                                    <span class="border border-gray-700 px-2 py-1 rounded">AI</span>
                                 </div>
                             </div>
                         </div>
@@ -563,7 +420,7 @@
         </section>
 
         <!-- 3D Art Section -->
-        <section id="3d-art" class="py-32 bg-cyber-dark/50 border-t border-cyber-cyan/10">
+        <section id="3d-art" class="py-32 bg-cyber-dark/50 border-t border-white/5">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="flex items-end justify-between mb-16">
                     <div>
@@ -573,63 +430,52 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
                     <!-- Sketchfab 1 -->
                     <div class="hud-panel p-1 bg-black aspect-[4/3]">
-                        <iframe title="Medieval Fantasy Cubicle" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b77c1d318601468e84f68ae87c98fe25/embed" class="w-full h-full"></iframe>
+                        <iframe title="Medieval Fantasy Cubicle" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b77c1d318601468e84f68ae87c98fe25/embed" class="w-full h-full rounded"></iframe>
                     </div>
-
                     <!-- Sketchfab 2 -->
                     <div class="hud-panel p-1 bg-black aspect-[4/3]">
-                        <iframe title="Female Oni" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5544e862a9224746828538cd10f7c452/embed" class="w-full h-full"></iframe>
+                        <iframe title="Female Oni" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5544e862a9224746828538cd10f7c452/embed" class="w-full h-full rounded"></iframe>
                     </div>
-
                     <!-- Sketchfab 3 -->
                     <div class="hud-panel p-1 bg-black aspect-[4/3]">
-                        <iframe title="Female Samurai" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/fcfa38c820f347d7b2ca2b7ffc81a1db/embed" class="w-full h-full"></iframe>
+                        <iframe title="Female Samurai" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/fcfa38c820f347d7b2ca2b7ffc81a1db/embed" class="w-full h-full rounded"></iframe>
                     </div>
-
                     <!-- Sketchfab 4 -->
                     <div class="hud-panel p-1 bg-black aspect-[4/3]">
-                        <iframe title="Goblin Head" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5828318cc2d14216b9c1123150b36b41/embed" class="w-full h-full"></iframe>
+                        <iframe title="Goblin Head" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5828318cc2d14216b9c1123150b36b41/embed" class="w-full h-full rounded"></iframe>
                     </div>
-
                     <!-- Sketchfab 5 -->
                     <div class="hud-panel p-1 bg-black aspect-[4/3]">
-                        <iframe title="Cartoon Traffic" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/1df5cb4bde3d42e88d407b546e4be9f6/embed" class="w-full h-full"></iframe>
+                        <iframe title="Cartoon Traffic" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/1df5cb4bde3d42e88d407b546e4be9f6/embed" class="w-full h-full rounded"></iframe>
                     </div>
-
                     <!-- Sketchfab 6 -->
                     <div class="hud-panel p-1 bg-black aspect-[4/3]">
-                        <iframe title="Props" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/4c3c1db1e200440cb6a247f35391fb3b/embed" class="w-full h-full"></iframe>
+                        <iframe title="Props" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/4c3c1db1e200440cb6a247f35391fb3b/embed" class="w-full h-full rounded"></iframe>
                     </div>
-
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer id="contact" class="py-20 bg-black relative border-t border-gray-800 overflow-hidden">
+        <footer id="contact" class="py-20 bg-black relative border-t border-white/5 overflow-hidden">
              <!-- Footer Grid BG -->
-             <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 20px 20px;"></div>
+             <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#222 1px, transparent 1px), linear-gradient(90deg, #222 1px, transparent 1px); background-size: 20px 20px;"></div>
 
              <div class="max-w-4xl mx-auto text-center relative z-10">
-                <div class="inline-block border border-cyber-purple/50 text-cyber-purple font-code px-4 py-1 text-xs tracking-widest mb-6">
-                    TRANSMISSION_END
-                </div>
-                
                 <h2 class="font-hud font-bold text-5xl text-white mb-10">INITIATE <span class="text-cyber-cyan">CONTACT</span></h2>
                 
                 <div class="flex justify-center gap-12">
                     <a href="mailto:deanvu1@gmail.com" class="group flex flex-col items-center gap-4">
-                        <div class="w-16 h-16 rounded-full bg-gray-900 border border-gray-700 flex items-center justify-center group-hover:border-cyber-cyan group-hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all">
+                        <div class="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-cyber-cyan group-hover:bg-cyber-cyan/10 transition-all">
                             <i data-lucide="mail" class="text-gray-400 group-hover:text-cyber-cyan"></i>
                         </div>
                         <span class="text-xs font-code text-gray-500 group-hover:text-cyber-cyan">SEND_EMAIL</span>
                     </a>
                     
                     <a href="https://www.linkedin.com/in/deanvanuden/" target="_blank" class="group flex flex-col items-center gap-4">
-                        <div class="w-16 h-16 rounded-full bg-gray-900 border border-gray-700 flex items-center justify-center group-hover:border-cyber-purple group-hover:shadow-[0_0_20px_rgba(188,19,254,0.4)] transition-all">
+                        <div class="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-cyber-purple group-hover:bg-cyber-purple/10 transition-all">
                             <i data-lucide="linkedin" class="text-gray-400 group-hover:text-cyber-purple"></i>
                         </div>
                         <span class="text-xs font-code text-gray-500 group-hover:text-cyber-purple">LINKED_IN</span>
@@ -637,7 +483,6 @@
                 </div>
 
                 <div class="mt-16 text-gray-700 font-code text-[10px]">
-                    TERMINAL_SESSION_ID: 8392-AX <br>
                     © 2025 DEAN VAN UDEN
                 </div>
              </div>
@@ -649,19 +494,7 @@
     <script>
         lucide.createIcons();
 
-        // Custom Cursor Logic
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        document.querySelectorAll('a, button, .video-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-        });
-
-        // 3D Background - Plexus Effect (Network)
+        // 3D Background - Relaxing Starfield
         const initThreeJS = () => {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
@@ -671,44 +504,32 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(renderer.domElement);
 
-            // Particles
+            // Particles (Stars)
             const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 80; // Fewer particles for lines
+            const particlesCount = 1500; // More particles for a nice field
             const posArray = new Float32Array(particlesCount * 3);
-            const velArray = []; // Velocity
 
-            for(let i = 0; i < particlesCount * 3; i+=3) {
-                posArray[i] = (Math.random() - 0.5) * 15;
-                posArray[i+1] = (Math.random() - 0.5) * 15;
-                posArray[i+2] = (Math.random() - 0.5) * 15;
-                
-                velArray.push({
-                    x: (Math.random() - 0.5) * 0.01,
-                    y: (Math.random() - 0.5) * 0.01,
-                    z: (Math.random() - 0.5) * 0.01
-                });
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 20; // Spread out more
             }
 
             particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
             
+            // Soft white/blue material
             const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.05,
-                color: 0x00f3ff,
+                size: 0.02,
+                color: 0x88ccff, 
+                transparent: true,
+                opacity: 0.8,
+                sizeAttenuation: true
             });
 
             const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
             scene.add(particlesMesh);
 
-            // Line Logic
-            const lineMaterial = new THREE.LineBasicMaterial({
-                color: 0x00f3ff,
-                transparent: true,
-                opacity: 0.2
-            });
+            camera.position.z = 3;
 
-            camera.position.z = 5;
-
-            // Mouse Interaction
+            // Mouse Interaction (Subtle Parallax)
             let mouseX = 0;
             let mouseY = 0;
 
@@ -720,81 +541,18 @@
             const animate = () => {
                 requestAnimationFrame(animate);
 
-                // Update positions based on velocity
-                const positions = particlesMesh.geometry.attributes.position.array;
-                
-                for(let i = 0; i < particlesCount; i++) {
-                    positions[i*3] += velArray[i].x;
-                    positions[i*3+1] += velArray[i].y;
-                    positions[i*3+2] += velArray[i].z;
+                // Very slow, relaxing rotation
+                particlesMesh.rotation.y += 0.0005; 
+                particlesMesh.rotation.x += 0.0002;
 
-                    // Bounds check - wrap around
-                    if(Math.abs(positions[i*3]) > 8) positions[i*3] *= -1;
-                    if(Math.abs(positions[i*3+1]) > 8) positions[i*3+1] *= -1;
-                    if(Math.abs(positions[i*3+2]) > 8) positions[i*3+2] *= -1;
-                }
-                
-                particlesMesh.geometry.attributes.position.needsUpdate = true;
-
-                // Create Lines dynamically (Plexus effect)
-                const childrenToRemove = [];
-                scene.traverse((child) => {
-                    if (child.isLine) childrenToRemove.push(child);
-                });
-                childrenToRemove.forEach((child) => scene.remove(child));
-
-                const linesGeometry = new THREE.BufferGeometry();
-                const linePositions = [];
-
-                // Connect particles close to each other
-                for(let i = 0; i < particlesCount; i++) {
-                    const x1 = positions[i*3];
-                    const y1 = positions[i*3+1];
-                    const z1 = positions[i*3+2];
-
-                    for(let j = i + 1; j < particlesCount; j++) {
-                        const x2 = positions[j*3];
-                        const y2 = positions[j*3+1];
-                        const z2 = positions[j*3+2];
-
-                        const dist = Math.sqrt(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2));
-
-                        if(dist < 2.5) {
-                            linePositions.push(x1, y1, z1);
-                            linePositions.push(x2, y2, z2);
-                        }
-                    }
-                }
-
-                linesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-                const lines = new THREE.LineSegments(linesGeometry, lineMaterial);
-                scene.add(lines);
-
-                // Rotation and Mouse Parallax
-                scene.rotation.y += 0.001;
-                scene.rotation.x += (mouseY * 0.1 - scene.rotation.x) * 0.05;
-                scene.rotation.y += (mouseX * 0.1 - scene.rotation.y) * 0.05;
+                // Subtle parallax
+                particlesMesh.rotation.x += (mouseY * 0.05 - particlesMesh.rotation.x) * 0.01;
+                particlesMesh.rotation.y += (mouseX * 0.05 - particlesMesh.rotation.y) * 0.01;
 
                 renderer.render(scene, camera);
             };
 
             animate();
-            
-            // FPS Counter Logic
-            let frames = 0;
-            let lastTime = performance.now();
-            const fpsElem = document.getElementById('fps-counter');
-            
-            setInterval(() => {
-                const now = performance.now();
-                const fps = Math.round(frames * 1000 / (now - lastTime));
-                if(fpsElem) fpsElem.innerText = fps;
-                frames = 0;
-                lastTime = now;
-            }, 1000);
-            
-            const countFrames = () => { frames++; requestAnimationFrame(countFrames); }
-            countFrames();
 
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -803,43 +561,39 @@
             });
         };
 
-        // Initialize ThreeJS on Load (No Loader)
         window.addEventListener('load', () => {
              initThreeJS();
         });
 
-        // REVISED Video Play Logic: Listeners on the CARD, not the video tag
+        // REVISED Video Play Logic
         document.querySelectorAll('.video-card').forEach(card => {
             const vid = card.querySelector('video');
             if(!vid) return;
 
-            // When entering the CARD, play video, fade opacity and UNMUTE
             card.addEventListener('mouseenter', () => {
                 vid.style.opacity = '1';
-                vid.muted = false; // Try unmuted first
-                vid.volume = 0.5;  // SET VOLUME TO 50%
+                vid.muted = false; 
+                vid.volume = 0.5;
                 
                 const playPromise = vid.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(error => {
-                        // If autoplay is blocked (usually due to audio), try muting and playing again
                         if (error.name === 'NotAllowedError') {
                             vid.muted = true;
-                            vid.play().catch(e => {}); // Silent catch if even muted fails
+                            vid.play().catch(e => {}); 
                         }
                     });
                 }
             });
 
-            // When leaving the CARD, pause video, revert opacity and MUTE
             card.addEventListener('mouseleave', () => {
                 vid.style.opacity = '0.6';
-                vid.muted = true; // Reset to mute for next time
+                vid.muted = true;
                 vid.pause();
             });
         });
 
-        // Simple Tilt Effect for Cards (Vanilla JS)
+        // Simple Tilt Effect
         document.querySelectorAll('[data-tilt]').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -849,8 +603,8 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = ((y - centerY) / centerY) * -5; // Max 5 deg
-                const rotateY = ((x - centerX) / centerX) * 5;
+                const rotateX = ((y - centerY) / centerY) * -3; // Subtle tilt
+                const rotateY = ((x - centerX) / centerX) * 3;
 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
@@ -859,6 +613,19 @@
                 card.style.transform = `perspective(1000px) rotateX(0) rotateY(0)`;
             });
         });
+
+        // Audio Unlock
+        const unlockAudio = () => {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(v => {
+                v.muted = false;
+                v.pause();
+            });
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('keydown', unlockAudio);
+        };
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('keydown', unlockAudio);
 
     </script>
 </body>
