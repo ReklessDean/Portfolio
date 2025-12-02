@@ -127,6 +127,19 @@
             overflow: hidden;
             border-radius: 8px;
         }
+        
+        /* Interactive Tags */
+        .tech-tag {
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .tech-tag:hover {
+            border-color: rgba(0, 243, 255, 0.5);
+            background: rgba(0, 243, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="font-hud selection:bg-cyber-cyan selection:text-black">
@@ -212,14 +225,19 @@
                         </p>
 
                         <div class="flex flex-wrap gap-4 mb-10">
-                            <div class="px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-cyber-cyan">SOLO_DEV</div>
-                            <div class="px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-white">PHYSICS_SYNC</div>
-                            <div class="px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-cyber-purple">STEAM_API</div>
+                            <div class="tech-tag px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-cyber-cyan">SOLO_DEV</div>
+                            <div class="tech-tag px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-white">PHYSICS_SYNC</div>
+                            <div class="tech-tag px-4 py-2 bg-white/5 rounded border border-white/10 text-sm text-cyber-purple">STEAM_API</div>
                         </div>
 
-                        <a href="https://store.steampowered.com/app/3318920/Quickball/" target="_blank" class="inline-flex items-center gap-2 text-cyber-cyan hover:text-white transition-colors border-b border-cyber-cyan pb-1 font-code">
-                            ACCESS_STEAM_STORE <i data-lucide="external-link" class="w-4 h-4"></i>
-                        </a>
+                        <div class="flex flex-wrap items-center gap-6">
+                            <a href="https://store.steampowered.com/app/3318920/Quickball/" target="_blank" class="inline-flex items-center gap-2 text-cyber-cyan hover:text-white transition-colors border-b border-cyber-cyan pb-1 font-code">
+                                ACCESS_STEAM_STORE <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                            <a href="https://deanvu.gitlab.io/master-thesis" target="_blank" class="inline-flex items-center gap-2 text-gray-500 hover:text-cyber-purple transition-colors text-sm font-code">
+                                READ_THESIS <i data-lucide="book-open" class="w-3 h-3"></i>
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Media Stack (Tilt Enabled) -->
@@ -249,7 +267,8 @@
         <!-- About Section -->
         <section id="about" class="py-32 border-y border-white/5 bg-black/20">
             <div class="max-w-5xl mx-auto px-6">
-                <div class="hud-panel p-8 md:p-12 relative overflow-hidden">
+                <!-- Added data-tilt to the main panel -->
+                <div class="hud-panel p-8 md:p-12 relative overflow-hidden" data-tilt>
                     <div class="flex flex-col md:flex-row gap-10 items-center md:items-start relative z-10">
                         <!-- Hex Profile Pic -->
                         <div class="shrink-0 relative group">
@@ -261,6 +280,8 @@
                         </div>
 
                         <div class="flex-1 text-center md:text-left">
+                            <!-- Restored Title -->
+                            <div class="text-cyber-cyan font-code tracking-widest text-sm mb-2">ABOUT PROFILE</div>
                             <h2 class="font-hud font-bold text-4xl text-white mb-2">DEAN VAN UDEN</h2>
                             <div class="text-cyber-purple font-code text-sm mb-6 tracking-widest">MASTER_OF_ARTS // GAME_DESIGN</div>
                             
@@ -299,6 +320,10 @@
                     <div>
                         <h2 class="font-hud font-bold text-5xl md:text-6xl text-white mb-2">ARCHIVES</h2>
                         <div class="text-cyber-cyan font-code text-sm tracking-widest">PROTOTYPES && EXPERIMENTS</div>
+                    </div>
+                    <div class="hidden md:block font-code text-xs text-gray-500 text-right">
+                        Dir: /projects/public<br>
+                        Total: 7 Files
                     </div>
                 </div>
 
@@ -388,6 +413,50 @@
                             <p class="text-gray-400 text-sm mb-4 line-clamp-2">Volumetric lighting and post-processing study. Created in a 2-week sprint to master HDRP pipeline.</p>
                             <span class="text-xs font-code text-gray-600">
                                 // INTERNAL_PROTOTYPE
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Card: 3rd Person Controller -->
+                    <div class="hud-panel p-0 group overflow-hidden video-card" data-tilt>
+                        <div class="relative aspect-video bg-black border-b border-white/5">
+                            <video loop muted playsinline class="w-full h-full object-cover opacity-60 transition-opacity duration-500">
+                                <source src="3rd_person.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute top-4 left-4 bg-black/80 px-2 py-1 border-l-2 border-purple-500 text-xs font-code text-purple-500">
+                                MOVEMENT_SYSTEM
+                            </div>
+                        </div>
+                        <div class="p-6 bg-gradient-to-b from-transparent to-black/50">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-hud font-bold text-2xl text-white group-hover:text-purple-500 transition-colors">3RD PERSON CONTROLLER</h3>
+                                <i data-lucide="gamepad-2" class="w-5 h-5 text-gray-600 group-hover:text-purple-500 transition-colors"></i>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Custom 3rd person movement controller featuring fluid locomotion states, implemented within a stylized Japanese environment.</p>
+                            <span class="text-xs font-code text-gray-600">
+                                // PROTOTYPE
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Card: Level Design / Photographer -->
+                    <div class="hud-panel p-0 group overflow-hidden video-card" data-tilt>
+                        <div class="relative aspect-video bg-black border-b border-white/5">
+                            <video loop muted playsinline class="w-full h-full object-cover opacity-60 transition-opacity duration-500">
+                                <source src="level_design.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute top-4 left-4 bg-black/80 px-2 py-1 border-l-2 border-green-500 text-xs font-code text-green-500">
+                                LEVEL_DESIGN
+                            </div>
+                        </div>
+                        <div class="p-6 bg-gradient-to-b from-transparent to-black/50">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-hud font-bold text-2xl text-white group-hover:text-green-500 transition-colors">REACTOR INFILTRATION</h3>
+                                <i data-lucide="camera" class="w-5 h-5 text-gray-600 group-hover:text-green-500 transition-colors"></i>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">Atmospheric stealth game. You play as a photographer infiltrating a destroyed nuclear reactor to document government cover-ups.</p>
+                            <span class="text-xs font-code text-gray-600">
+                                // PROTOTYPE
                             </span>
                         </div>
                     </div>
@@ -626,6 +695,38 @@
         };
         document.addEventListener('click', unlockAudio);
         document.addEventListener('keydown', unlockAudio);
+
+        // Scroll Spy for Navigation
+        const highlightNav = () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Trigger when 1/3 of the screen is into the section
+                if (window.scrollY >= (sectionTop - window.innerHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                // Reset style
+                link.classList.remove('bg-cyber-cyan', 'scale-150', 'shadow-[0_0_15px_#00f3ff]');
+                link.classList.add('bg-gray-600');
+                
+                // Apply active style
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('bg-gray-600');
+                    link.classList.add('bg-cyber-cyan', 'scale-150', 'shadow-[0_0_15px_#00f3ff]');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', highlightNav);
+        window.addEventListener('load', highlightNav); // Run on load
 
     </script>
 </body>
