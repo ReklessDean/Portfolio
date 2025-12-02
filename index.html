@@ -151,6 +151,7 @@
             border-top: 2px solid #00f3ff;
             border-left: 2px solid #00f3ff;
             transition: all 0.3s ease;
+            pointer-events: none; /* CRITICAL FIX: Allows clicks to pass through */
         }
         .hud-panel::after {
             content: '';
@@ -160,6 +161,7 @@
             border-bottom: 2px solid #00f3ff;
             border-right: 2px solid #00f3ff;
             transition: all 0.3s ease;
+            pointer-events: none; /* CRITICAL FIX: Allows clicks to pass through */
         }
         .hud-panel:hover {
             border-color: rgba(0, 243, 255, 0.4);
@@ -573,32 +575,32 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
                     <!-- Sketchfab 1 -->
-                    <div class="hud-panel p-1 bg-black aspect-[4/3]" data-tilt>
+                    <div class="hud-panel p-1 bg-black aspect-[4/3]">
                         <iframe title="Medieval Fantasy Cubicle" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/b77c1d318601468e84f68ae87c98fe25/embed" class="w-full h-full"></iframe>
                     </div>
 
                     <!-- Sketchfab 2 -->
-                    <div class="hud-panel p-1 bg-black aspect-[4/3]" data-tilt>
+                    <div class="hud-panel p-1 bg-black aspect-[4/3]">
                         <iframe title="Female Oni" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5544e862a9224746828538cd10f7c452/embed" class="w-full h-full"></iframe>
                     </div>
 
                     <!-- Sketchfab 3 -->
-                    <div class="hud-panel p-1 bg-black aspect-[4/3]" data-tilt>
+                    <div class="hud-panel p-1 bg-black aspect-[4/3]">
                         <iframe title="Female Samurai" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/fcfa38c820f347d7b2ca2b7ffc81a1db/embed" class="w-full h-full"></iframe>
                     </div>
 
                     <!-- Sketchfab 4 -->
-                    <div class="hud-panel p-1 bg-black aspect-[4/3]" data-tilt>
+                    <div class="hud-panel p-1 bg-black aspect-[4/3]">
                         <iframe title="Goblin Head" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/5828318cc2d14216b9c1123150b36b41/embed" class="w-full h-full"></iframe>
                     </div>
 
                     <!-- Sketchfab 5 -->
-                    <div class="hud-panel p-1 bg-black aspect-[4/3]" data-tilt>
+                    <div class="hud-panel p-1 bg-black aspect-[4/3]">
                         <iframe title="Cartoon Traffic" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/1df5cb4bde3d42e88d407b546e4be9f6/embed" class="w-full h-full"></iframe>
                     </div>
 
                     <!-- Sketchfab 6 -->
-                    <div class="hud-panel p-1 bg-black aspect-[4/3]" data-tilt>
+                    <div class="hud-panel p-1 bg-black aspect-[4/3]">
                         <iframe title="Props" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/4c3c1db1e200440cb6a247f35391fb3b/embed" class="w-full h-full"></iframe>
                     </div>
 
@@ -811,20 +813,28 @@
             const vid = card.querySelector('video');
             if(!vid) return;
 
-            // When entering the CARD, play video and fade opacity
+            // When entering the CARD, play video, fade opacity and UNMUTE
             card.addEventListener('mouseenter', () => {
                 vid.style.opacity = '1';
+                vid.muted = false; // Try unmuted first
+                vid.volume = 0.5;  // SET VOLUME TO 50%
+                
                 const playPromise = vid.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(error => {
-                        // Auto-play was prevented or interrupted, ignore
+                        // If autoplay is blocked (usually due to audio), try muting and playing again
+                        if (error.name === 'NotAllowedError') {
+                            vid.muted = true;
+                            vid.play().catch(e => {}); // Silent catch if even muted fails
+                        }
                     });
                 }
             });
 
-            // When leaving the CARD, pause video and revert opacity
+            // When leaving the CARD, pause video, revert opacity and MUTE
             card.addEventListener('mouseleave', () => {
                 vid.style.opacity = '0.6';
+                vid.muted = true; // Reset to mute for next time
                 vid.pause();
             });
         });
