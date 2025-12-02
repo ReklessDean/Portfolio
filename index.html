@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dean van Uden | Game Designer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -175,8 +176,8 @@
                     </div>
 
                     <!-- Steam Widget -->
-                    <div class="relative bg-black rounded-lg overflow-hidden border border-gray-800 shadow-[0_0_30px_rgba(0,243,255,0.1)] hover:shadow-[0_0_50px_rgba(0,243,255,0.2)] transition-shadow duration-500">
-                        <iframe src="https://store.steampowered.com/widget/3318920/" frameborder="0" width="100%" height="190" class="w-full"></iframe>
+                    <div class="relative bg-black rounded-lg overflow-hidden border border-gray-800 shadow-[0_0_30px_rgba(0,243,255,0.1)] hover:shadow-[0_0_50px_rgba(0,243,255,0.2)] transition-shadow duration-500" style="height: 190px;">
+                        <iframe src="https://store.steampowered.com/widget/3318920/" frameborder="0" width="100%" height="190" scrolling="no" style="overflow:hidden; border:none;"></iframe>
                     </div>
                 </div>
             </div>
@@ -211,11 +212,9 @@
          <div class="max-w-4xl mx-auto px-6 relative z-10">
             <div class="glass-panel p-8 md:p-12 rounded-2xl border border-gray-800">
                 <div class="flex flex-col md:flex-row gap-8 items-start">
-                    <!-- Profile Icon -->
+                    <!-- Profile Picture -->
                     <div class="shrink-0 bg-gradient-to-br from-gray-800 to-black p-1 rounded-full border border-gray-700">
-                        <div class="w-24 h-24 rounded-full bg-gray-900 flex items-center justify-center">
-                            <i data-lucide="user" class="text-brand-cyan w-10 h-10"></i>
-                        </div>
+                        <img src="profile.jpg" alt="Dean van Uden" class="w-24 h-24 rounded-full object-cover bg-gray-900 border-2 border-gray-800">
                     </div>
 
                     <div class="space-y-4">
@@ -257,38 +256,6 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                <!-- Project: The Core -->
-                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-cyan transition-colors">
-                        <video controls playsinline>
-                            <source src="the_core.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="flex justify-between items-baseline">
-                        <h3 class="text-xl font-bold text-white">THE CORE</h3>
-                        <span class="text-xs text-brand-cyan font-mono border border-brand-cyan/30 px-2 py-1 rounded">UNITY LIGHTING</span>
-                    </div>
-                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
-                        Atmospheric experience game created in a 2-week sprint. Responsible for all Unity implementation, specifically volumetric lighting, post-processing, and environmental mood.
-                    </p>
-                </div>
-
-                <!-- Project: Crossroads -->
-                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-purple transition-colors">
-                        <video controls playsinline>
-                            <source src="crossroads.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="flex justify-between items-baseline">
-                        <h3 class="text-xl font-bold text-white">CROSSROADS</h3>
-                        <span class="text-xs text-brand-purple font-mono border border-brand-purple/30 px-2 py-1 rounded">PUZZLE LOGIC</span>
-                    </div>
-                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
-                        Cartoon puzzle game focused on efficiency. Players must guide cars to the finish line using optimized routing. Designed the core puzzle mechanics and pathfinding systems.
-                    </p>
-                </div>
-
                 <!-- Project: XR Lighting Configurator -->
                 <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
                     <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-cyan transition-colors">
@@ -325,6 +292,54 @@
                     <a href="https://www.linkedin.com/feed/update/urn:li:activity:6997805321633071104" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-brand-purple hover:underline">
                         <i data-lucide="linkedin" class="w-4 h-4"></i> View Post
                     </a>
+                </div>
+
+                <!-- Project: 1v1 Arena Shooter -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-cyan transition-colors">
+                        <video controls playsinline>
+                            <source src="1v1_shooter.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">1v1 ARENA SHOOTER</h3>
+                        <span class="text-xs text-brand-cyan font-mono border border-brand-cyan/30 px-2 py-1 rounded">MULTIPLAYER / FPS</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Fast-paced 1v1 multiplayer shooter. Designed the networking logic and player controller for tight competitive play in a compact arena setting.
+                    </p>
+                </div>
+
+                <!-- Project: The Core -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-cyan transition-colors">
+                        <video controls playsinline>
+                            <source src="the_core.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">THE CORE</h3>
+                        <span class="text-xs text-brand-cyan font-mono border border-brand-cyan/30 px-2 py-1 rounded">UNITY LIGHTING</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Atmospheric experience game created in a 2-week sprint. Responsible for all Unity implementation, specifically volumetric lighting, post-processing, and environmental mood.
+                    </p>
+                </div>
+
+                <!-- Project: Crossroads -->
+                <div class="group glass-panel p-6 rounded-2xl hover:bg-white/5 transition-colors">
+                    <div class="video-container mb-4 bg-black border border-gray-800 group-hover:border-brand-purple transition-colors">
+                        <video controls playsinline>
+                            <source src="crossroads.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <h3 class="text-xl font-bold text-white">CROSSROADS</h3>
+                        <span class="text-xs text-brand-purple font-mono border border-brand-purple/30 px-2 py-1 rounded">PUZZLE LOGIC</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3 leading-relaxed">
+                        Cartoon puzzle game focused on efficiency. Players must guide cars to the finish line using optimized routing. Designed the core puzzle mechanics and pathfinding systems.
+                    </p>
                 </div>
 
             </div>
