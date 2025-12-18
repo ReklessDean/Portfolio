@@ -77,24 +77,24 @@
             z-index: -1;
         }
 
-        /* Immersive Bento Card */
+        /* Immersive Bento Card - Updated for Readability */
         .bento-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(10, 10, 12, 0.75); /* Darker & More Opaque */
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 32px; /* Highly rounded corners like Igloo */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px; 
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             overflow: hidden;
             position: relative;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
         
         .bento-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(20, 20, 25, 0.85); /* Even darker on hover for focus */
+            border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6), 0 0 20px rgba(56, 189, 248, 0.1);
         }
 
         /* Subtle Inner Glow on Hover */
@@ -104,7 +104,7 @@
             inset: 0;
             border-radius: 32px;
             padding: 1px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
@@ -172,12 +172,12 @@
 
     <!-- Navigation (Floating Pill) -->
     <nav class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up w-[90%] max-w-md" style="animation-delay: 0.5s;">
-        <div class="flex items-center justify-between bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full p-2 shadow-2xl ring-1 ring-white/5">
+        <div class="flex items-center justify-between bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full p-2 shadow-2xl ring-1 ring-white/5">
             <div class="flex gap-1">
-                <a href="#home" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/50 hover:text-white" title="Home"><i data-lucide="home" class="w-5 h-5"></i></a>
-                <a href="#featured" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/50 hover:text-white" title="Featured"><i data-lucide="star" class="w-5 h-5"></i></a>
-                <a href="#archive" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/50 hover:text-white" title="Archive"><i data-lucide="grid" class="w-5 h-5"></i></a>
-                <a href="#assets" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/50 hover:text-white" title="Assets"><i data-lucide="box" class="w-5 h-5"></i></a>
+                <a href="#home" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white" title="Home"><i data-lucide="home" class="w-5 h-5"></i></a>
+                <a href="#featured" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white" title="Featured"><i data-lucide="star" class="w-5 h-5"></i></a>
+                <a href="#archive" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white" title="Archive"><i data-lucide="grid" class="w-5 h-5"></i></a>
+                <a href="#assets" class="p-3 rounded-full hover:bg-white/10 transition-colors text-white/70 hover:text-white" title="Assets"><i data-lucide="box" class="w-5 h-5"></i></a>
             </div>
             <div class="w-px h-6 bg-white/10 mx-1"></div>
             <a href="#contact" class="px-5 py-2.5 bg-white text-black rounded-full font-bold text-sm hover:bg-ice-100 transition-all flex items-center gap-2 whitespace-nowrap">
@@ -191,7 +191,7 @@
 
         <!-- Hero Section -->
         <header id="home" class="min-h-screen flex flex-col justify-center items-center text-center max-w-5xl mx-auto pt-20">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-ice-accent mb-8 animate-fade-in-up backdrop-blur-md">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-black/40 text-sm text-ice-accent mb-8 animate-fade-in-up backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
@@ -204,7 +204,7 @@
                 <span class="text-transparent bg-clip-text bg-gradient-to-br from-white via-ice-100 to-ice-accent/50">Architect</span>
             </h1>
             
-            <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-16 font-light leading-relaxed animate-fade-in-up px-4" style="animation-delay: 0.2s;">
+            <p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-16 font-light leading-relaxed animate-fade-in-up px-4" style="animation-delay: 0.2s;">
                 I'm Dean. A technical Game Designer crafting immersive multiplayer systems and high-fidelity XR experiences.
             </p>
 
@@ -220,7 +220,7 @@
                         </div>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-display font-bold mb-2">Game Design</h3>
-                    <p class="text-white/40">Mechanics & Loops</p>
+                    <p class="text-white/60">Mechanics & Loops</p>
                 </div>
 
                 <!-- Highlight Card -->
@@ -234,7 +234,7 @@
                         </div>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-display font-bold mb-2">Engineering</h3>
-                    <p class="text-white/40">Unity & Netcode</p>
+                    <p class="text-white/60">Unity & Netcode</p>
                 </div>
 
                 <!-- Highlight Card -->
@@ -248,7 +248,7 @@
                         </div>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-display font-bold mb-2">3D Art</h3>
-                    <p class="text-white/40">Assets & Environs</p>
+                    <p class="text-white/60">Assets & Environs</p>
                 </div>
             </div>
         </header>
@@ -282,14 +282,14 @@
                             <h3 class="text-3xl md:text-4xl font-bold font-display">Quickball</h3>
                         </div>
                         
-                        <p class="text-white/60 leading-relaxed mb-8 text-base md:text-lg font-light">
+                        <p class="text-white/80 leading-relaxed mb-8 text-base md:text-lg font-light">
                             A high-velocity multiplayer sports game designed for competitive play. Created with a focus on zero-latency feel using <strong class="text-white">Unity NGO</strong> for frame-perfect physics synchronization.
                         </p>
                         
                         <div class="flex flex-wrap gap-2 mb-12">
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-sm text-white/80 border border-white/5">Solo Dev</span>
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-sm text-white/80 border border-white/5">Physics</span>
-                            <span class="px-4 py-2 bg-white/5 rounded-full text-sm text-white/80 border border-white/5">Multiplayer</span>
+                            <span class="px-4 py-2 bg-white/5 rounded-full text-sm text-white/90 border border-white/10">Solo Dev</span>
+                            <span class="px-4 py-2 bg-white/5 rounded-full text-sm text-white/90 border border-white/10">Physics</span>
+                            <span class="px-4 py-2 bg-white/5 rounded-full text-sm text-white/90 border border-white/10">Multiplayer</span>
                         </div>
                     </div>
 
@@ -331,10 +331,10 @@
                         <div class="flex justify-between items-start mb-2">
                             <h4 class="text-2xl font-bold font-display">Drone Simulator</h4>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">FPV drone simulator for urban warfare combat training. Simulated targets and military scenarios.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">FPV drone simulator for urban warfare combat training. Simulated targets and military scenarios.</p>
                         <div class="flex gap-2 mt-2">
-                            <span class="text-[10px] uppercase font-bold text-white/40 border border-white/10 px-2 py-1 rounded">Unity</span>
-                            <span class="text-[10px] uppercase font-bold text-white/40 border border-white/10 px-2 py-1 rounded">Simulation</span>
+                            <span class="text-[10px] uppercase font-bold text-white/60 border border-white/10 px-2 py-1 rounded">Unity</span>
+                            <span class="text-[10px] uppercase font-bold text-white/60 border border-white/10 px-2 py-1 rounded">Simulation</span>
                         </div>
                     </div>
                 </div>
@@ -358,7 +358,7 @@
                                 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                             </a>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Multiplayer VR app for real-time client lighting configuration with SQL export pipelines.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Multiplayer VR app for real-time client lighting configuration with SQL export pipelines.</p>
                     </div>
                 </div>
 
@@ -380,7 +380,7 @@
                                 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                             </a>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Interactive facility tour demonstrating production pipelines for B2B visualization.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Interactive facility tour demonstrating production pipelines for B2B visualization.</p>
                     </div>
                 </div>
 
@@ -402,7 +402,7 @@
                                 <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                             </a>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Shared XR experience exploring the future of collaborative AR/VR in physical space.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Shared XR experience exploring the future of collaborative AR/VR in physical space.</p>
                     </div>
                 </div>
 
@@ -421,7 +421,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <h4 class="text-2xl font-bold font-display">1v1 Arena</h4>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Compact arena shooter focusing on tight player controller feel and lag compensation.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Compact arena shooter focusing on tight player controller feel and lag compensation.</p>
                     </div>
                 </div>
 
@@ -440,7 +440,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <h4 class="text-2xl font-bold font-display">The Core</h4>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Volumetric lighting and post-processing HDRP study. 2-week technical sprint.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Volumetric lighting and post-processing HDRP study. 2-week technical sprint.</p>
                     </div>
                 </div>
 
@@ -459,10 +459,10 @@
                         <div class="flex justify-between items-start mb-2">
                             <h4 class="text-2xl font-bold font-display">Locomotion</h4>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Custom 3rd person controller with fluid states in a stylized setting.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Custom 3rd person controller with fluid states in a stylized setting.</p>
                         <div class="flex gap-2">
-                            <span class="text-[10px] uppercase font-bold text-white/40 border border-white/10 px-2 py-1 rounded">C#</span>
-                            <span class="text-[10px] uppercase font-bold text-white/40 border border-white/10 px-2 py-1 rounded">Anim</span>
+                            <span class="text-[10px] uppercase font-bold text-white/60 border border-white/10 px-2 py-1 rounded">C#</span>
+                            <span class="text-[10px] uppercase font-bold text-white/60 border border-white/10 px-2 py-1 rounded">Anim</span>
                         </div>
                     </div>
                 </div>
@@ -482,7 +482,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <h4 class="text-2xl font-bold font-display">Infiltration</h4>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Atmospheric stealth game. Photography mechanic in a destroyed reactor.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Atmospheric stealth game. Photography mechanic in a destroyed reactor.</p>
                     </div>
                 </div>
 
@@ -501,10 +501,10 @@
                         <div class="flex justify-between items-start mb-2">
                             <h4 class="text-2xl font-bold font-display">Crossroads</h4>
                         </div>
-                        <p class="text-white/50 text-sm line-clamp-2">Optimization puzzle game. Designed A* pathfinding variants to simulate traffic logic.</p>
+                        <p class="text-white/70 text-sm line-clamp-2">Optimization puzzle game. Designed A* pathfinding variants to simulate traffic logic.</p>
                         <div class="flex gap-2">
-                            <span class="text-[10px] uppercase font-bold text-white/40 border border-white/10 px-2 py-1 rounded">AI</span>
-                            <span class="text-[10px] uppercase font-bold text-white/40 border border-white/10 px-2 py-1 rounded">Puzzle</span>
+                            <span class="text-[10px] uppercase font-bold text-white/60 border border-white/10 px-2 py-1 rounded">AI</span>
+                            <span class="text-[10px] uppercase font-bold text-white/60 border border-white/10 px-2 py-1 rounded">Puzzle</span>
                         </div>
                     </div>
                 </div>
